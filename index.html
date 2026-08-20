@@ -775,7 +775,7 @@
         </div>
     </aside>
 
-    <a href="https://wa.me/573022736655" target="_blank" class="whatsapp-float" aria-label="WhatsApp Directo">
+    <a href="https://wa.me/573004615549" target="_blank" class="whatsapp-float" aria-label="WhatsApp Directo">
         <i class="fab fa-whatsapp"></i>
     </a>
 
@@ -995,24 +995,10 @@
   description: "Camisa slim fit de manga corta en algodón con combinación bicolor blanco y negro. Su diseño limpio y contemporáneo aporta contraste y personalidad, perfecta para crear un outfit casual elegante.",
   reviews: [{ name: "Óscar López", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=73", stars: 4, comment: "La combinación blanco y negro se ve moderna y fácil de combinar. El diseño tiene mucha personalidad." }]
 },
-{
-  id: "camc-08",
-  name: "Camisa Slim Fit Turquí & Mostaza Cuello Rayas",
-  category: "Camisa",
-  fabric: "Algodón",
-  type: "camisa",
-  sizes: SHIRT_SIZES,
-  price: 115999,
- /*  wholesalePrice: 115000, */
-  featured: true,
-  colors: ["Turqui-Mostaza"],
-  media: [{ type: "image", url: "img/camc/camc7.webp" }],
-  description: "Camisa slim fit de manga corta en algodón, con una combinación de tonos turquí y mostaza que destaca por su originalidad. El cuello a rayas y los botones contrastantes completan una propuesta fresca, moderna y diferente.",
-  reviews: [{ name: "Felipe Torres", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=81", stars: 5, comment: "Los colores son únicos y llaman mucho la atención. Me gustó especialmente cómo queda el contraste del cuello." }]
-},
+
 {
   id: "camc-09",
-  name: "Camisa Slim Fit Verde Selva en Algodón",
+  name: "Camisa Slim Fit Lino",
   category: "Camisa",
   fabric: "Lino",
   type: "camisa",
@@ -1448,6 +1434,21 @@
                 description: "Camisa exclusiva personalizada en negro con líneas blancas, creada para quienes buscan una estética moderna, limpia y sofisticada. Una pieza con presencia propia.",
                 reviews: []
             },  
+            {
+            id: "excl-019",
+            name: "Camisa Slim Fit Turquí & Mostaza Cuello Rayas",
+            category: "Camisa",
+            fabric: "Algodón",
+            type: "camisa",
+            sizes: SHIRT_SIZES,
+            price: 115999,
+            /*  wholesalePrice: 115000, */
+            featured: true,
+            colors: ["Turqui-Mostaza"],
+            media: [{ type: "image", url: "img/camc/camc7.webp" }],
+            description: "Camisa slim fit de manga corta en algodón, con una combinación de tonos turquí y mostaza que destaca por su originalidad. los botones contrastantes completan una propuesta fresca, moderna y diferente.",
+            reviews: [{ name: "Felipe Torres", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=81", stars: 5, comment: "Los colores son únicos y llaman mucho la atención. Me gustó especialmente cómo queda el contraste del cuello." }]
+            },
             /* TRAJES */
 
             {
@@ -1547,6 +1548,37 @@
                 media: [{ type: "image", url: "img/personalizado/p4.webp" }],
                 description: "Camisa sobre medida creada para ofrecer una imagen elegante y personalizada. Su concepto permite construir una pieza con identidad propia, cuidando el ajuste y la presencia final.",
                 reviews: []
+            },
+            /* PAREJAS */
+            {
+            id: "par-01",
+            name: "Camisa y Talego Slim Fit",
+            category: "Parejas",
+            fabric: "Algodón",
+            type: "camisa",
+            sizes: SHIRT_SIZES,
+            price: 336000,
+            /*  wholesalePrice: 115000, */
+            featured: true,
+            colors: ["Turqui-Mostaza"],
+            media: [{ type: "image", url: "img/personalizado/excl10.webp" }],
+            description: "Camisa slim fit de manga corta en algodón, con una combinación de tonos turquí y mostaza que destaca por su originalidad. los botones contrastantes completan una propuesta fresca, moderna y diferente.",
+            reviews: [{ name: "Felipe Torres", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=81", stars: 5, comment: "Los colores son únicos y llaman mucho la atención. Me gustó especialmente cómo queda el contraste con mi pareja." }]
+            },
+             {
+            id: "par-02",
+            name: "Camisa y Blusa Slim Fit",
+            category: "Parejas",
+            fabric: "Algodón",
+            type: "camisa",
+            sizes: SHIRT_SIZES,
+            price: 168000,
+            /*  wholesalePrice: 115000, */
+            featured: true,
+            colors: ["Rojo"],
+            media: [{ type: "image", url: "img/personalizado/excl11.webp" }],
+            description: "Camisa slim fit de manga corta en algodón, con una combinación de tonos turquí y mostaza que destaca por su originalidad. los botones contrastantes completan una propuesta fresca, moderna y diferente.",
+            reviews: [{ name: "Felipe Torres", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=81", stars: 5, comment: "Los colores son únicos y llaman mucho la atención. Me gustó especialmente cómo queda el contraste del cuello." }]
             },
 
         ];
@@ -1886,7 +1918,7 @@
 🔢 *Cantidad:* ${qty}
 💰 *Precio Total:* ${formatPrice(unitPrice * qty)}`;
 
-            document.getElementById("modalWspBtn").href = `https://wa.me/573022736655?text=${encodeURIComponent(msg)}`;
+            document.getElementById("modalWspBtn").href = `https://wa.me/573004615549?text=${encodeURIComponent(msg)}`;
         }
 
         function renderComments(reviews) {
@@ -2001,7 +2033,7 @@
 
             message += `💰 *Total a Pagar: ${formatPrice(total)}*\n\n¿Me confirman disponibilidad e instrucciones para entrega en Valledupar?`;
 
-            window.open(`https://wa.me/573022736655?text=${encodeURIComponent(message)}`, "_blank");
+            window.open(`https://wa.me/573004615549?text=${encodeURIComponent(message)}`, "_blank");
         }
 
         function showToast(msg) {
