@@ -1,0 +1,2043 @@
+ <!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JEICOT CONFECCIONES - Tienda de Ropa en Valledupar</title>
+    
+    <!-- Iconos de FontAwesome y Tipografía Poppins -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           1. VARIABLES CSS (PALETA Y TEMA)
+           ========================================================================== */
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #151c2c;
+            --bg-card: #1e293b;
+            --bg-glass: rgba(30, 41, 59, 0.85);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: rgba(255, 255, 255, 0.08);
+            
+            --electric-blue: #00d2ff;
+            --neon-pink: #ff007f;
+            --neon-green: #00ff88;
+            --gold: #ffb703;
+            --accent-gradient: linear-gradient(135deg, #00d2ff, #ff007f);
+            
+            --bottom-nav-height: 65px;
+            --top-header-height: 70px;
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --shadow-glow: 0 0 15deg rgba(0, 210, 255, 0.2);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f1f5f9;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: rgba(0, 0, 0, 0.08);
+            --shadow-glow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            overflow-x: hidden;
+            padding-top: var(--top-header-height);
+            padding-bottom: calc(var(--bottom-nav-height) + 20px);
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            position: relative;
+        }
+
+        /* FONDO ANIMADO */
+        .bubbles-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            bottom: -100px;
+            background: radial-gradient(circle at 30% 30%, rgba(0, 210, 255, 0.25), rgba(255, 0, 127, 0.1));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0; }
+            20% { opacity: 0.6; }
+            80% { opacity: 0.6; }
+            100% { transform: translateY(-110vh) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--bg-card); border-radius: 10px; }
+
+        /* HEADER */
+        .top-header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: var(--top-header-height);
+            background: var(--bg-glass);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .brand-container { display: flex; align-items: center; gap: 12px; }
+
+        .brand-logo-container {
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            padding: 2px;
+            background: var(--accent-gradient);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .brand-logo {
+            width: 100%; height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background-color: var(--bg-secondary);
+        }
+
+        .brand-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        .header-actions { display: flex; align-items: center; gap: 12px; }
+
+        .icon-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -2px; right: -2px;
+            background: var(--neon-pink);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            width: 18px; height: 18px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* VISTAS */
+        .app-view {
+            display: none;
+            padding: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 0.4s ease both;
+        }
+
+        .app-view.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-banner {
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 24px 16px;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .hero-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 8px; }
+        .hero-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px; }
+
+        .social-buttons { display: flex; justify-content: center; gap: 12px; }
+        .btn-social {
+            width: 50px; height: 50px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: white; text-decoration: none;
+            transition: var(--transition);
+        }
+        .btn-social.facebook { background: #1877f2; }
+        .btn-social.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .btn-social.tiktok { background: #000; border: 1px solid #333; }
+
+        /* Búsqueda y Categorías */
+        .search-container { position: relative; margin-bottom: 16px; }
+        .search-input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            color: var(--text-main);
+            outline: none;
+        }
+        .search-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+
+        .categories-scroll {
+            display: flex; gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px; margin-bottom: 20px;
+        }
+        .categories-scroll::-webkit-scrollbar { display: none; }
+
+        .category-chip {
+            padding: 8px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            white-space: nowrap;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .category-chip.active {
+            background: var(--accent-gradient);
+            color: #fff; border-color: transparent; font-weight: 600;
+        }
+
+        /* Grid de Productos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 16px;
+        }
+        @media (min-width: 600px) {
+            .products-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+        }
+
+        .product-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 12px;
+            display: flex; flex-direction: column; justify-content: space-between;
+            transition: var(--transition);
+        }
+        .product-card:hover { transform: translateY(-4px); border-color: var(--electric-blue); }
+
+        .product-img-wrapper {
+            width: 100%; height: 200px;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: var(--bg-secondary);
+            margin-bottom: 12px;
+            position: relative; cursor: pointer;
+        }
+        .product-img { width: 100%; height: 100%; object-fit: cover; }
+
+        .product-badge {
+            position: absolute;
+            top: 8px; left: 8px;
+            background: rgba(0, 210, 255, 0.85);
+            color: #000;
+            font-size: 0.65rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 10px;
+            backdrop-filter: blur(4px);
+        }
+
+        .product-title {
+            font-size: 0.9rem; font-weight: 600; margin-bottom: 4px;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+            overflow: hidden; height: 2.6em; cursor: pointer;
+        }
+
+        .product-fabric {
+            font-size: 0.75rem;
+            color: var(--electric-blue);
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        /* Estilos para doble precio */
+        .price-container {
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .price-retail {
+            font-size: 1.05rem; font-weight: 700; color: var(--neon-green);
+        }
+        .price-wholesale {
+            font-size: 0.75rem; color: var(--gold); font-weight: 600;
+        }
+
+        .btn-add-cart {
+            width: 100%; padding: 10px;
+            background: var(--accent-gradient);
+            border: none; border-radius: var(--radius-sm);
+            color: #fff; font-weight: 600; font-size: 0.85rem;
+            cursor: pointer; transition: var(--transition);
+        }
+
+        /* MODAL DE PRODUCTO */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: flex; align-items: flex-end; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        @media (min-width: 600px) { .modal-overlay { align-items: center; padding: 20px; } }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .modal-content {
+            background: var(--bg-secondary);
+            width: 100%; max-width: 580px;
+            border-top-left-radius: var(--radius-lg); border-top-right-radius: var(--radius-lg);
+            padding: 24px; max-height: 90vh; overflow-y: auto;
+            position: relative; border: 1px solid var(--border-color);
+        }
+        @media (min-width: 600px) { .modal-content { border-radius: var(--radius-lg); } }
+
+        .modal-close {
+            position: absolute; top: 16px; right: 16px;
+            background: var(--bg-card); border: none; color: var(--text-main);
+            width: 32px; height: 32px; border-radius: 50%; cursor: pointer; z-index: 10;
+        }
+
+        /* Slider de Medios y EFECTO ZOOM EN IMAGEN */
+        .slider-container {
+            position: relative;
+            width: 100%; height: 280px;
+            background: var(--bg-primary);
+            border-radius: var(--radius-md);
+            overflow: hidden; margin-bottom: 16px;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .slider-media {
+            width: 100%; height: 100%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+        
+        /* Modal de Zoom Ampliado */
+        .zoom-modal {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 3500;
+            display: none;
+            align-items: center; justify-content: center;
+            cursor: zoom-out;
+        }
+        .zoom-modal.active { display: flex; }
+        .zoom-img {
+            max-width: 95%; max-height: 95vh;
+            object-fit: contain;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .slider-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: rgba(0,0,0,0.6); color: #fff;
+            border: none; width: 36px; height: 36px; border-radius: 50%;
+            cursor: pointer; z-index: 5;
+        }
+        .slider-btn.prev { left: 10px; }
+        .slider-btn.next { right: 10px; }
+
+        .slider-dots {
+            position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 6px; z-index: 5;
+        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.4); }
+        .dot.active { background: var(--electric-blue); width: 12px; border-radius: 4px; }
+
+        /* Controles de Selección */
+        .options-row {
+            display: flex; flex-wrap: wrap; gap: 12px;
+            margin-bottom: 16px; background: var(--bg-card);
+            padding: 12px; border-radius: var(--radius-md);
+        }
+        .option-group { flex: 1; min-width: 130px; }
+        .option-label { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; margin-bottom: 6px; display: block; }
+        
+        .size-selector { display: flex; gap: 6px; flex-wrap: wrap; }
+        .size-btn {
+            padding: 6px 12px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: var(--radius-sm);
+            cursor: pointer; font-size: 0.8rem; font-weight: 600;
+            transition: var(--transition);
+        }
+        .size-btn.active {
+            background: var(--neon-pink);
+            color: #fff; border-color: transparent;
+        }
+
+        .size-guide-box {
+            background: rgba(0, 210, 255, 0.05);
+            border: 1px dashed var(--electric-blue);
+            border-radius: var(--radius-md);
+            padding: 12px; margin-bottom: 16px;
+            display: flex; align-items: center; gap: 12px;
+        }
+        .size-guide-img {
+            width: 80px; height: 80px;
+            border-radius: 8px; object-fit: cover;
+            border: 1px solid var(--border-color); background: #fff;
+        }
+        .size-guide-info { font-size: 0.8rem; flex: 1; }
+        .size-guide-info strong { color: var(--electric-blue); display: block; margin-bottom: 2px; }
+
+        .quantity-control { display: flex; align-items: center; gap: 8px; }
+        .btn-qty {
+            width: 32px; height: 32px; border-radius: 6px;
+            background: var(--bg-secondary); border: 1px solid var(--border-color);
+            color: var(--text-main); font-weight: 700; cursor: pointer;
+        }
+        .qty-input {
+            width: 40px; text-align: center; background: transparent;
+            border: none; color: var(--text-main); font-weight: 700; font-size: 1rem;
+        }
+
+        .color-select {
+            width: 100%; padding: 8px; background: var(--bg-secondary);
+            border: 1px solid var(--border-color); color: var(--text-main);
+            border-radius: var(--radius-sm); outline: none; font-size: 0.85rem;
+        }
+
+        /* Comentarios */
+        .comments-section {
+            margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 16px;
+        }
+        .comments-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--electric-blue); }
+        .comment-card {
+            background: var(--bg-card); border-radius: var(--radius-md);
+            padding: 12px; margin-bottom: 10px; border: 1px solid var(--border-color);
+        }
+        .comment-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
+        .comment-avatar { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; }
+        .comment-user { font-weight: 600; font-size: 0.85rem; }
+        .comment-city { font-size: 0.7rem; color: var(--text-muted); }
+        .comment-stars { color: var(--gold); font-size: 0.8rem; margin-bottom: 6px; }
+        .comment-text { font-size: 0.8rem; line-height: 1.4; color: var(--text-main); }
+
+        /* EMPRESA & CERTIFICACIONES */
+        .store-gallery {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px; margin-top: 12px; margin-bottom: 20px;
+        }
+        .store-photo {
+            width: 100%; height: 110px; border-radius: var(--radius-sm);
+            object-fit: cover; border: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .store-photo:hover { transform: scale(1.03); border-color: var(--electric-blue); }
+
+        .about-card {
+            background: var(--bg-card); border-radius: var(--radius-md);
+            padding: 16px; border: 1px solid var(--border-color); margin-bottom: 16px;
+        }
+
+        /* NAVEGACIÓN Y CARRITO LATERAL */
+        .cart-drawer-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            z-index: 2500; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+        }
+        .cart-drawer-overlay.active { opacity: 1; pointer-events: auto; }
+
+        .cart-drawer {
+            position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%;
+            background: var(--bg-secondary); z-index: 2600; display: flex; flex-direction: column;
+            transition: right 0.3s ease;
+        }
+        .cart-drawer.active { right: 0; }
+
+        .cart-header { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .cart-body { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+        .cart-item { display: flex; align-items: center; gap: 12px; background: var(--bg-card); padding: 10px; border-radius: var(--radius-md); }
+        .cart-item-img { width: 60px; height: 60px; border-radius: var(--radius-sm); object-fit: cover; }
+        .cart-footer { padding: 20px; border-top: 1px solid var(--border-color); background: var(--bg-card); }
+
+        .btn-checkout {
+            width: 100%; padding: 14px; background: #25d366; color: white;
+            border: none; border-radius: var(--radius-md); font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+        }
+
+        .whatsapp-float {
+            position: fixed; bottom: calc(var(--bottom-nav-height) + 16px); right: 16px;
+            width: 50px; height: 50px; background: #25d366; color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.6rem;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); z-index: 900; text-decoration: none;
+        }
+
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0;
+            height: var(--bottom-nav-height); background: var(--bg-glass);
+            backdrop-filter: blur(12px); border-top: 1px solid var(--border-color);
+            display: flex; justify-content: space-around; align-items: center; z-index: 1000;
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            color: var(--text-muted); font-size: 0.65rem; background: none; border: none;
+            cursor: pointer; width: 20%;
+        }
+        .nav-item i { font-size: 1.1rem; margin-bottom: 2px; }
+        .nav-item.active { color: var(--electric-blue); font-weight: 700; }
+
+        .toast {
+            position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-20px);
+            background: var(--accent-gradient); color: white; padding: 10px 20px; border-radius: 20px;
+            font-size: 0.85rem; font-weight: 600; z-index: 3000; opacity: 0; transition: all 0.3s ease;
+        }
+        .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+
+    <!-- FONDO ANIMADO DE BURBUJAS -->
+    <div class="bubbles-container" id="bubblesContainer"></div>
+
+    <div id="toast" class="toast">Notificación</div>
+
+    <!-- ENCABEZADO FIJO -->
+    <header class="top-header">
+        <div class="brand-container">
+            <div class="brand-logo-container">
+                <img src="img/logo.webp" alt="Logo JEICOT" class="brand-logo" onerror="this.src='https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=150&q=80'">
+            </div>
+            <div>
+                <h1 class="brand-title">JEICOT CONFECCIONES</h1>
+                <span style="font-size: 0.65rem; color: var(--text-muted); display: block;">Moda & Confección | Valledupar</span>
+            </div>
+        </div>
+
+        <div class="header-actions">
+            <button class="icon-btn" id="themeToggle" aria-label="Cambiar Tema"><i class="fas fa-moon"></i></button>
+            <button class="icon-btn" id="cartToggle" aria-label="Ver Carrito">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-badge" id="cartCount">0</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- SECCIONES / VISTAS DE LA APP -->
+    <main>
+        <!-- VISTA: INICIO -->
+        <section id="view-inicio" class="app-view active">
+            <div class="hero-banner">
+                <h2 class="hero-title">Elegancia & Asesoría de Imagen Certificada</h2>
+                <p class="hero-subtitle">Descubre el ajuste perfecto en camisas, pantalones y prendas a la medida en Valledupar.</p>
+                <div class="social-buttons">
+                    <a href="https://facebook.com/jeicotconfecciones" target="_blank" class="btn-social facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/jeicotconfecciones" target="_blank" class="btn-social instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://tiktok.com" target="_blank" class="btn-social tiktok"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+
+            <h3 style="font-size: 1.1rem; margin-bottom: 12px;">Colección Destacada</h3>
+            <div class="products-grid" id="featuredProducts"></div>
+        </section>
+
+        <!-- VISTA: PRODUCTOS (ROPA) -->
+        <section id="view-productos" class="app-view">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar camisas, jeans, telas, blusas...">
+            </div>
+
+            <!-- Filtros por Categoría de Prenda -->
+            <div style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-bottom: 6px;">CATEGORÍA DE PRENDA:</div>
+            <div class="categories-scroll" id="categoriesContainer"></div>
+
+            <!-- Filtros por Tipo de Tela -->
+            <div style="font-size: 0.8rem; font-weight: 600; color: var(--electric-blue); margin-bottom: 6px;">TIPO DE TELA:</div>
+            <div class="categories-scroll" id="fabricCategoriesContainer"></div>
+
+            <div class="products-grid" id="mainProductsGrid"></div>
+        </section>
+
+        <!-- VISTA: EXCLUSIVOS (ANTES AVISOS) -->
+        <section id="view-exclusivos" class="app-view">
+            <div class="hero-banner" style="background: linear-gradient(135deg, rgba(255, 0, 128, 0.3), rgba(0,210,255,0.15)); border-color: var(--neon-pink);">
+                <h2 class="hero-title" style="color: var(--neon-pink); text-shadow: 0 0 20px rgba(255,0,127,0.5);">Colección Exclusiva</h2>
+                <p class="hero-subtitle">Diseños de edición limitada, prendas de alta costura y personalizados.</p>
+            </div>
+
+            <!-- Clasificación de Exclusivos -->
+            <div class="categories-scroll" id="neonCategoriesContainer"></div>
+            <div class="products-grid" id="neonProductsGrid"></div>
+        </section>
+
+        <!-- VISTA: EMPRESA -->
+        <section id="view-empresa" class="app-view">
+            <div class="about-card">
+                <h2 style="color: var(--electric-blue); font-size: 1.3rem; margin-bottom: 8px;">¿Quiénes Somos?</h2>
+                <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 12px;">
+                    <img id="empresaProfileImg" src="img/LOGO-_2_.webp" alt="Asesores de Imagen Jeicot" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; border: 2px solid var(--electric-blue);">
+                    <p style="flex:1; font-size: 0.85rem; line-height: 1.5; min-width: 200px;">
+                        Somos **JEICOT CONFECCIONES**, **Asesores de Imagen Certificados** y taller boutique especializado en confección textil de alta gama en Valledupar. Ayudamos a elevar tu estilo personal proyectando seguridad y elegancia mediante prendas diseñadas con métricas de colorimetría, análisis de morfología corporal y selección rigurosa de las mejores telas (Lino, Algodón, Jean, Seda).
+                    </p>
+                </div>
+            </div>
+
+            <!-- SECCIÓN: CERTIFICACIONES Y CAPACITACIONES -->
+            <div class="about-card">
+                <h3 style="color: var(--gold); font-size: 1.1rem; margin-bottom: 8px;"><i class="fas fa-award"></i> Certificaciones & Capacitación</h3>
+                <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 12px;">Nuestra formación continua garantiza un asesoramiento integral de tu guardarropa y la máxima calidad en patronaje.</p>
+                
+                <div class="store-gallery" id="certificatesGallery">
+                    <!-- Espacios para colgar imágenes de certificados -->
+                    <img src="https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&w=500&q=80" class="store-photo" alt="Certificado Asesoría de Imagen">
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=500&q=80" class="store-photo" alt="Certificación Confección">
+                </div>
+            </div>
+
+            <!-- SECCIÓN: GALERÍA DE TRABAJOS REALIZADOS -->
+            <h3 style="font-size: 1rem; margin-bottom: 8px; color: var(--neon-pink);"><i class="fas fa-cut"></i> Trabajos Realizados & Taller</h3>
+            <div class="store-gallery" id="storeGallery">
+                <!-- Espacios dinámicos para fotos de confecciones finalizadas -->
+            </div>
+
+            <div class="about-card">
+                <h3 style="color: var(--neon-green); font-size: 1.1rem; margin-bottom: 6px;"><i class="fas fa-bullseye"></i> Misión</h3>
+                <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-muted);">
+                    Transformar la imagen de nuestros clientes mediante prendas confeccionadas a la medida y una asesoría estética personalizada que proyecte su mejor versión en cada ocasión.
+                </p>
+            </div>
+
+            <div class="about-card">
+                <h3 style="color: var(--gold); font-size: 1.1rem; margin-bottom: 6px;"><i class="fas fa-eye"></i> Visión</h3>
+                <p style="font-size: 0.85rem; line-height: 1.5; color: var(--text-muted);">
+                    Ser el referente líder de la Región Caribe en consultoría de imagen y confección personalizada, destacados por la excelencia artesanal e innovación en diseño textil.
+                </p>
+            </div>
+        </section>
+
+        <!-- VISTA: UBICACIÓN -->
+        <section id="view-ubicacion" class="app-view">
+            <h3 style="margin-bottom: 8px;">Nuestra Ubicación</h3>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
+                Mz 83 Casa 20 Apto 01 Garupal III Etapa , Valledupar - Cesar, Colombia
+            </p>
+            
+            <div style="width: 100%; height: 250px; border-radius: var(--radius-md); overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border-color);">
+                <iframe 
+                    title="Ubicación Exacta JEICOT CONFECCIONES"
+                    src="https://maps.google.com/maps?q=10.471734, -73.270248&t=&z=17&ie=UTF8&iwloc=&output=embed" 
+                    width="100%" height="100%" style="border:0;" loading="lazy">
+                </iframe>
+            </div>
+
+            <a href="https://maps.google.com/?q=10.46974451,-73.26424319" target="_blank" class="btn-add-cart" style="display: block; text-align: center; text-decoration: none;">
+                <i class="fas fa-directions"></i> CÓMO LLEGAR (GPS)
+            </a>
+        </section>
+    </main>
+
+    <!-- MODAL PARA ZOOM EN IMAGEN -->
+    <div class="zoom-modal" id="zoomModal" onclick="closeZoomModal()">
+        <img src="" id="zoomImg" class="zoom-img" alt="Zoom Prenda">
+    </div>
+
+    <!-- MODAL DETALLE DE PRODUCTO -->
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content">
+            <button class="modal-close" id="closeModal"><i class="fas fa-times"></i></button>
+            
+            <!-- Slider de Medios -->
+            <div class="slider-container">
+                <button class="slider-btn prev" onclick="moveSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+                <div id="sliderMediaWrapper" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;"></div>
+                <button class="slider-btn next" onclick="moveSlide(1)"><i class="fas fa-chevron-right"></i></button>
+                <div class="slider-dots" id="sliderDots"></div>
+            </div>
+
+            <h3 id="modalTitle" style="margin-bottom: 4px;"></h3>
+            
+            <!-- Dos Precios en Modal -->
+            <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 12px;">
+                <div id="modalPrice" style="font-size: 1.3rem; font-weight: 700; color: var(--neon-green);"></div>
+                <div id="modalWholesalePrice" style="font-size: 0.9rem; font-weight: 600; color: var(--gold);"></div>
+            </div>
+
+            <span id="modalFabricBadge" style="background: rgba(0,210,255,0.15); color: var(--electric-blue); font-size: 0.75rem; font-weight: 600; padding: 4px 10px; border-radius: 12px; border: 1px solid var(--electric-blue); display: inline-block; margin-bottom: 12px;"></span>
+
+            <p id="modalDesc" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 16px;"></p>
+
+            <!-- GUÍA DE TALLAS -->
+            <div id="sizeGuideBox" class="size-guide-box">
+                <img id="sizeGuideImg" src="" alt="Guía de Medida" class="size-guide-img">
+                <div class="size-guide-info">
+                    <strong id="sizeGuideTitle">Guía de Talle e Indicador</strong>
+                    <span id="sizeGuideText">Selecciona la talla adecuada. Medidas garantizadas por Asesores de Imagen JEICOT.</span>
+                </div>
+            </div>
+
+            <!-- Opciones del Producto -->
+            <div class="options-row">
+                <div class="option-group" id="sizeGroup">
+                    <span class="option-label">Seleccionar Talla</span>
+                    <div id="sizeSelector" class="size-selector"></div>
+                </div>
+                <div class="option-group">
+                    <span class="option-label">Cantidad</span>
+                    <div class="quantity-control">
+                        <button class="btn-qty" onclick="adjustQty(-1)">-</button>
+                        <input type="text" id="selectedQty" class="qty-input" value="1" readonly>
+                        <button class="btn-qty" onclick="adjustQty(1)">+</button>
+                    </div>
+                </div>
+                <div class="option-group" id="colorGroup">
+                    <span class="option-label">Color Disponible</span>
+                    <select id="colorSelect" class="color-select"></select>
+                </div>
+            </div>
+
+            <button class="btn-add-cart" id="modalAddBtn" style="margin-bottom: 8px;">
+                <i class="fas fa-cart-plus"></i> Agregar al Carrito
+            </button>
+            <a href="#" target="_blank" id="modalWspBtn" class="btn-checkout" style="text-decoration: none;">
+                <i class="fab fa-whatsapp"></i> Comprar por WhatsApp Directo
+            </a>
+
+            <!-- Caja de Comentarios -->
+            <div class="comments-section">
+                <div class="comments-title"><i class="fas fa-comments"></i> Opiniones de Clientes</div>
+                <div id="commentsContainer"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CARRITO DRAWER LATERAL -->
+    <div class="cart-drawer-overlay" id="cartOverlay"></div>
+    <aside class="cart-drawer" id="cartDrawer">
+        <div class="cart-header">
+            <h3><i class="fas fa-shopping-cart"></i> Mi Carrito</h3>
+            <button class="icon-btn" id="closeCart"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="cart-body" id="cartItemsContainer"></div>
+        <div class="cart-footer">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 700;">
+                <span>Total:</span>
+                <span id="cartTotal" style="color: var(--neon-green);">$0</span>
+            </div>
+            <button class="btn-checkout" id="btnCheckout">
+                <i class="fab fa-whatsapp"></i> FINALIZAR COMPRA POR WHATSAPP
+            </button>
+        </div>
+    </aside>
+
+    <a href="https://wa.me/573022736655" target="_blank" class="whatsapp-float" aria-label="WhatsApp Directo">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- NAVEGACIÓN INFERIOR -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" onclick="switchView('inicio')">
+            <i class="fas fa-home"></i>
+            <span>Inicio</span>
+        </button>
+        <button class="nav-item" onclick="switchView('productos')">
+            <i class="fas fa-tshirt"></i>
+            <span>Prendas</span>
+        </button>
+        <button class="nav-item" onclick="switchView('exclusivos')">
+            <i class="fas fa-star"></i>
+            <span>Exclusivos</span>
+        </button>
+        <button class="nav-item" onclick="switchView('empresa')">
+            <i class="fas fa-user-tie"></i>
+            <span>Empresa</span>
+        </button>
+        <button class="nav-item" onclick="switchView('ubicacion')">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Ubicación</span>
+        </button>
+    </nav>
+
+    <!-- SCRIPT DE LÓGICA REORGANIZADO -->
+    <script>
+        /* IMÁGENES SVG GUÍA DE TALLAS */
+        const SHIRT_SIZE_GUIDE_IMG = "data:image/svg+xml;base64," + btoa(`
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+                <rect width="100%" height="100%" fill="#1e293b"/>
+                <path d="M 80 70 L 120 40 L 180 40 L 220 70 L 200 110 L 180 95 L 180 250 L 120 250 L 120 95 L 100 110 Z" fill="#00d2ff" opacity="0.2" stroke="#00d2ff" stroke-width="3"/>
+                <line x1="100" y1="130" x2="200" y2="130" stroke="#ff007f" stroke-width="4" stroke-dasharray="5,5"/>
+                <circle cx="150" cy="130" r="6" fill="#ff007f"/>
+                <text x="150" y="120" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">CONTORNO DE PECHO</text>
+                <text x="150" y="160" fill="#00ff88" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">TALLA M = 110 cm</text>
+            </svg>
+        `);
+
+        const PANTS_SIZE_GUIDE_IMG = "data:image/svg+xml;base64," + btoa(`
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+                <rect width="100%" height="100%" fill="#1e293b"/>
+                <path d="M 90 50 L 210 50 L 200 260 L 160 260 L 150 120 L 140 120 L 100 260 L 60 260 Z" fill="#ff007f" opacity="0.2" stroke="#ff007f" stroke-width="3"/>
+                <line x1="88" y1="65" x2="212" y2="65" stroke="#00d2ff" stroke-width="4" stroke-dasharray="5,5"/>
+                <circle cx="150" cy="65" r="6" fill="#00d2ff"/>
+                <text x="150" y="55" fill="#ffffff" font-family="sans-serif" font-size="14" font-weight="bold" text-anchor="middle">CONTORNO DE CINTURA</text>
+                <text x="150" y="95" fill="#00ff88" font-family="sans-serif" font-size="16" font-weight="bold" text-anchor="middle">TALLA 32 = 90 cm</text>
+            </svg>
+        `);
+
+        const PLACEHOLDER_IMAGE = "data:image/svg+xml;base64," + btoa(`
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+                <rect width="400" height="400" fill="#1e293b"/>
+                <text x="200" y="200" fill="#64748b" font-family="sans-serif" font-size="14" text-anchor="middle">Prenda JEICOT</text>
+            </svg>
+        `);
+
+        function extractGoogleDriveId(url) {
+            if (!url) return null;
+            const driveRegex = /(?:drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=view&)?id=|thumbnail\?id=)|lh3\.googleusercontent\.com\/d\/)([a-zA-Z0-9_-]+)/;
+            const match = url.match(driveRegex);
+            return match ? match[1] : null;
+        }
+
+        function getGoogleDriveImageVariants(url) {
+            const id = extractGoogleDriveId(url);
+            if (!id) return [url];
+            return [
+                `https://lh3.googleusercontent.com/d/${id}=w1000`,
+                `https://drive.google.com/thumbnail?id=${id}&sz=w1000`,
+                `https://drive.google.com/uc?export=view&id=${id}`
+            ];
+        }
+
+        function buildImageAttrs(url) {
+            if (!url) return `src="${PLACEHOLDER_IMAGE}"`;
+            const variants = getGoogleDriveImageVariants(url);
+            const [first, ...rest] = variants;
+            const fallbacksAttr = JSON.stringify(rest).replace(/"/g, '&quot;');
+            return `src="${first}" data-fallbacks='${fallbacksAttr}' onerror="handleImageError(this)"`;
+        }
+
+        function handleImageError(imgEl) {
+            let fallbacks = [];
+            try { fallbacks = JSON.parse((imgEl.dataset.fallbacks || '[]').replace(/&quot;/g, '"')); } catch (e) { fallbacks = []; }
+            if (fallbacks.length > 0) {
+                const next = fallbacks.shift();
+                imgEl.dataset.fallbacks = JSON.stringify(fallbacks);
+                imgEl.src = next;
+            } else {
+                imgEl.onerror = null;
+                imgEl.src = PLACEHOLDER_IMAGE;
+            }
+        }
+
+        /* FOTOS DE EMPRESA Y CERTIFICADOS */
+        const QUIENES_SOMOS_DRIVE_PHOTO = "https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=600&q=80";
+        const STORE_PHOTOS = [
+            "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=500&q=80",
+            "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=500&q=80",
+            "https://images.unsplash.com/photo-1604014237800-1c9102c219da?auto=format&fit=crop&w=500&q=80"
+        ];
+
+        /* CATEGORÍAS ESPECIFICADAS */
+        const CATEGORIES = ["Todos", "Camisa", "Pantalón hombre", "Pantalón dama", "Bermudas", "Shorts", "Talego", "Suéter", "Blusas", "Jean's"];
+        const FABRIC_TYPES = ["Todas las telas", "Lino", "Algodón", "Jean / Denim", "Seda"];
+
+        const SHIRT_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
+        const PANTS_SIZES = ["28", "30", "32", "34", "36", "38"];
+
+        /* BASE DE DATOS DE PRODUCTOS CON 2 PRECIOS (Detal / Mayorista) */
+        const PRODUCTS_DATA = [
+            {
+                id: "cam-01",
+                name: "Camisa Lino Blanca Estilo Guayabera",
+                category: "Camisa",
+                fabric: "Lino",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 185000,
+              /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "https://drive.google.com/file/d/160zWeF8lDCly7PU65WqlFfFZ1PwfydBc/view?usp=drive_link" }],
+                description: "Camisa de lino 100% fresco, corte impecable recomendado por asesores para climas cálidos.",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+    {
+  id: "camc-02",
+  name: "Camisa Slim Fit Blanca Cuello Rayas",
+  category: "Camisa",
+  fabric: "Algodón",
+  type: "camisa",
+  sizes: SHIRT_SIZES,
+  price: 79999,
+  /*  wholesalePrice: 115000, */
+  featured: true,
+  colors: ["Blanco"],
+  media: [{ type: "image", url: "img/camc/camc1.webp" }],
+  description: "Camisa slim fit manga corta en algodón, corte moderno que estiliza la figura. Detalle de cuello con 3 rayas negras y botones contrastantes. Perfecta para un look casual elegante.",
+  reviews: [{ name: "Andrés Patiño", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=22", stars: 5, comment: "El corte le queda perfecto y la tela es muy cómoda." }]
+},
+{
+  id: "camc-03",
+  name: "Camisa Slim Fit Roja Cuello Rayas",
+  category: "Camisa",
+  fabric: "Algodón",
+  type: "camisa",
+  sizes: SHIRT_SIZES,
+  price: 79999,
+/*  wholesalePrice: 115000, */
+  featured: true,
+  colors: ["Rojo"],
+  media: [{ type: "image", url: "img/camc/camc2.webp" }],
+  description: "Camisa slim fit manga corta en algodón color rojo. Diseño moderno con detalle de cuello a rayas y botones oscuros. Ideal para destacar con un estilo urbano y juvenil.",
+  reviews: [{ name: "Luis Gómez", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=31", stars: 4, comment: "Me encanta el color y como resalta el cuello." }]
+},
+{
+  id: "camc-04",
+  name: "Camisa Slim Fit Naranja Cuello Rayas",
+  category: "Camisa",
+  fabric: "Algodón",
+  type: "camisa",
+  sizes: SHIRT_SIZES,
+  price: 79999,
+ /*  wholesalePrice: 115000, */
+  featured: true,
+  colors: ["Naranja"],
+  media: [{ type: "image", url: "img/camc/camc3.webp" }],
+  description: "Camisa slim fit manga corta en algodón Naranja. Corte ajustado, cuello con rayas y botones en contraste. Una prenda fresca y llamativa para cualquier ocasión.",
+  reviews: [{ name: "Jhonatan Ríos", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=45", stars: 5, comment: "Muy buena tela y el color está brutal." }]
+},
+{
+  id: "camc-05",
+  name: "Camisa Slim Fit Amarilla Cuello Rayas",
+  category: "Camisa",
+  fabric: "Algodón",
+  type: "camisa",
+  sizes: SHIRT_SIZES,
+  price: 79999,
+ /*  wholesalePrice: 115000, */
+  featured: true,
+  colors: ["Amarillo"],
+  media: [{ type: "image", url: "img/camc/camc4.webp" }],
+  description: "Camisa slim fit manga corta en algodón amarillo. Diseño moderno con cuello a rayas que le da un toque distintivo. Fresca, ligera y perfecta para el día a día.",
+  reviews: [{ name: "Camilo Fernández", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=58", stars: 5, comment: "Excelente calidad, se ve muy elegante." }]
+},
+{
+  id: "camc-06",
+  name: "Camisa Slim Fit Negra Cuello Rayas",
+  category: "Camisa",
+  fabric: "Algodón",
+  type: "camisa",
+  sizes: SHIRT_SIZES,
+  price: 79999,
+  /*  wholesalePrice: 115000, */
+  featured: true,
+  colors: ["Negro"],
+  media: [{ type: "image", url: "img/camc/camc5.webp" }],
+  description: "Camisa slim fit manga corta en algodón negro. Estilo urbano con detalle de cuello a rayas rojas y botones rojos. Versátil para combinar de día o de noche.",
+  reviews: [{ name: "Diego Martínez", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=67", stars: 5, comment: "Negra elegante y el corte slim la hace ver muy bien." }]
+},
+{
+  id: "camc-07",
+  name: "Camisa Slim Fit Blanca y Negra",
+  category: "Camisa",
+  fabric: "Algodón",
+  type: "camisa",
+  sizes: SHIRT_SIZES,
+  price: 95000,
+  /*  wholesalePrice: 115000, */
+  featured: true,
+  colors: ["Blanco-Negro"],
+  media: [{ type: "image", url: "img/camc/camc6.webp" }],
+  description: "Camisa slim fit manga corta en algodón bicolor blanco y negro. Corte moderno. Perfecta para un look casual con mucho estilo.",
+  reviews: [{ name: "Óscar López", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=73", stars: 4, comment: "La combinación de colores me fascinó." }]
+},
+{
+  id: "camc-08",
+  name: "Camisa Slim Fit Turquí y Mostaza Cuello Rayas",
+  category: "Camisa",
+  fabric: "Algodón",
+  type: "camisa",
+  sizes: SHIRT_SIZES,
+  price: 115999,
+ /*  wholesalePrice: 115000, */
+  featured: true,
+  colors: ["Turqui-Mostaza"],
+  media: [{ type: "image", url: "img/camc/camc7.webp" }],
+  description: "Camisa slim fit manga corta en algodón con tonos turquí y mostaza. Diseño fresco con cuello a rayas y botones contrastantes. Ideal para salir de lo común.",
+  reviews: [{ name: "Felipe Torres", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=81", stars: 5, comment: "Los colores están únicos, llama mucho la atención." }]
+},
+{
+  id: "camc-09",
+  name: "Camisa Lino Slim Fit Blanca",
+  category: "Camisa",
+  fabric: "Lino",
+  type: "camisa",
+  sizes: SHIRT_SIZES,
+  price: 189999,
+ /*  wholesalePrice: 115000, */
+  featured: true,
+  colors: ["Verde Selva"],
+  media: [{ type: "image", url: "img/camc/camc8.webp" }],
+  description: "Camisa slim fit manga corta en algodón verde selva. Corte que estiliza y detalle de cuello con rayas. Una opción fresca y diferente para tu armario.",
+  reviews: [{ name: "Sebastián Herrera", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=90", stars: 5, comment: "El color verde selva es espectacular y la tela muy fresca." }]
+},
+    /* CAMISAS MANGA LARGA*/
+{
+                id: "caml-01",
+                name: "Camisa Lino Blanca Estilo Guayabera",
+                category: "Camisa",
+                fabric: "Lino",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 180000,
+              /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "img/caml/caml1.webp" }],
+                description: "Camisa de oxfor 100% fresco, corte impecable recomendado por asesores para climas cálidos.",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+    {
+                id: "caml-02",
+                name: "Camisa Slim Negra",
+                category: "Camisa",
+                fabric: "Algodon",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 119999,
+               /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Negra"],
+                media: [{ type: "image", url: "img/caml/caml2.webp" }],
+                description: "Camisa Slim Cómodo, con diseño moderno, fácil de combinar .",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+    
+    /* CAMISAS DE LINO */
+    {
+                id: "lino-02",
+                name: "Camisa Lino Blanca Estilo Guayabera",
+                category: "Camisa",
+                fabric: "Lino",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 189999,
+               /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "img/caml/lino2.webp" }],
+                description: "Camisa de lino 100% fresco, corte impecable recomendado por asesores para climas cálidos.",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+    {
+                id: "lino-03",
+                name: "Camisa Lino Blanca Estilo Guayabera",
+                category: "Camisa",
+                fabric: "Lino",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 189999,
+               /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "img/caml/lino3.webp" }],
+                description: "Camisa de lino 100% fresco, corte impecable recomendado por asesores para climas cálidos.",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+    
+    /* PANTALONE */
+            {
+                id: "pan-01",
+                name: "Pantalón Drill Slim Hombre",
+                category: "Pantalón hombre",
+                fabric: "Algodón",
+                type: "pantalon",
+                sizes: PANTS_SIZES,
+                price: 125000,
+                /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Khaki", "Gris Oscuro", "Negro"],
+                media: [{ type: "image", url: "img/panth/panth1.webp" }],
+                description: "Pantalón Slim Cómodo, con diseño moderno, fácil de combinar.",
+                reviews: []
+            },
+    {
+                id: "panth-02",
+                name: "Pantalón Drill Slim Hombre",
+                category: "Pantalón hombre",
+                fabric: "Algodón",
+                type: "pantalon",
+                sizes: PANTS_SIZES,
+                price: 125000,
+               /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Khaki", "Gris Oscuro", "Negro", "Blanco"],
+                media: [{ type: "image", url: "img/panth/panth2.webp" }],
+                description: "Pantalón Slim Cómodo, con diseño moderno, fácil de combinar.",
+                reviews: []
+            },
+{
+                id: "panth-03",
+                name: "Pantalón Drill Slim Hombre",
+                category: "Pantalón hombre",
+                fabric: "Algodón",
+                type: "pantalon",
+                sizes: PANTS_SIZES,
+                price: 125000,
+                /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Khaki", "Gris Oscuro", "Negro", "Blanco"],
+                media: [{ type: "image", url: "img/panth/panth3.webp" }],
+                description: "Pantalón Slim Cómodo, con diseño moderno, fácil de combinar.",
+                reviews: []
+            },
+{
+                id: "panth-04",
+                name: "Pantalón Drill Slim Hombre",
+                category: "Pantalón hombre",
+                fabric: "Algodón",
+                type: "pantalon",
+                sizes: PANTS_SIZES,
+                price: 125000,
+                /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Khaki", "Gris Oscuro", "Negro", "Blanco"],
+                media: [{ type: "image", url: "img/panth/panth4.webp" }],
+                description: "Pantalón Slim Cómodo, con diseño moderno, fácil de combinar.",
+                reviews: []
+            },
+    /* SUETERE */
+    {
+                id: "suet-01",
+                name: "Sueter",
+                category: "Sueter",
+                fabric: "lafayet",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 109999,
+               /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "img/sueter/sueter1.webp" }],
+                description: "Sueter Slim Cómodo, con diseño moderno, fácil de combinar .",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+{
+                id: "suet-02",
+                name: "Sueter",
+                category: "Sueter",
+                fabric: "lafayet",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 109999,
+                /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "img/sueter/sueter5.webp" }],
+                description: "Sueter Slim Cómodo, con diseño moderno, fácil de combinar .",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+    {
+                id: "suet-03",
+                name: "Sueter",
+                category: "Sueter",
+                fabric: "lafayet",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 109999,
+               /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "img/sueter/sueter3.webp" }],
+                description: "Sueter Slim Cómodo, con diseño moderno, fácil de combinar .",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+{
+                id: "suet-04",
+                name: "Sueter",
+                category: "Sueter",
+                fabric: "lafayet",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 109999,
+               /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "img/sueter/sueter4.webp" }],
+                description: "Sueter Slim Cómodo, con diseño moderno, fácil de combinar .",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+    /* JEAN'S */
+      /*      {
+                id: "jean-01",
+                name: "Jean Premium Ajuste Comfort",
+                category: "Jean's",
+                fabric: "Jean / Denim",
+                type: "pantalon",
+                sizes: PANTS_SIZES,
+                price: 140000,
+                wholesalePrice: 120000,
+                featured: true,
+                colors: ["Azul Medio"],
+                media: [{ type: "image", url: "https://drive.google.com/file/d/1rrul82YucgElFRmu0db7NRjHBTtjKud9/view?usp=drive_link" }],
+                description: "Jean Denim alta resistencia y elasticidad ideal para el día a día.",
+                reviews: []
+            }, */
+            {
+                id: "blu-01",
+                name: "Blusa Seda Elegante Dama",
+                category: "Blusas",
+                fabric: "Seda",
+                type: "camisa",
+                sizes: ["S", "M", "L"],
+                price: 95000,
+               /*  wholesalePrice: 115000, */
+                featured: false,
+                colors: ["Rojo Pasión", "Blanco"],
+                media: [{ type: "image", url: "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?auto=format&fit=crop&w=800&q=80" }],
+                description: "Blusa en seda fluida con excelente caída y porte distinguido.",
+                reviews: []
+            },
+    /* TALEGOS */
+      /*      {
+                id: "tal-01",
+                name: "Talego Lino Fresco Caribe",
+                category: "Talego",
+                fabric: "Lino",
+                type: "camisa",
+                sizes: ["S", "M", "L"],
+                price: 150000,
+                  wholesalePrice: 115000, 
+                featured: true,
+                colors: ["Beige", "Verde Olivo"],
+                media: [{ type: "image", url: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=800&q=80" }],
+                description: "Vestido tipo talego fresco, versátil para eventos informales o de gala.",
+                reviews: []
+            },*/
+    {
+                id: "tal-02",
+                name: "Talego azul",
+                category: "Talego",
+                fabric: "Drill Camisero",
+                type: "camisa",
+                sizes: SHIRT_SIZES,
+                price: 189999,
+                /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "img/talego/talego2.webp" }],
+                description: "Camisa de lino 100% fresco, corte impecable recomendado por asesores para climas cálidos.",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+    {
+                id: "tal-03",
+                name: "Talego Mostaza-Turqui",
+                category: "Talego",
+                fabric: "Algodon",
+                type: "talego",
+                sizes: SHIRT_SIZES,
+                price: 189999,
+                /*  wholesalePrice: 115000, */
+                featured: true,
+                colors: ["Blanco"],
+                media: [{ type: "image", url: "img/talego/talego1.webp" }],
+                description: "Camisa de lino 100% fresco, corte impecable recomendado por asesores para climas cálidos.",
+                reviews: [{ name: "Carlos Cárdenas", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            }, 
+            {
+                id: "tal-04",
+                name: "Talego ",
+                category: "Talego",
+                fabric: "Lino",
+                type: "talego",
+                sizes: SHIRT_SIZES,
+                price: 169000,
+             /*   wholesalePrice: 160000, */
+                featured: true,
+                colors: ["Amarillo puntos"],
+                media: [{ type: "image", url: "img/talego/talego4.png" }],
+                description: "Talego de lino 100% fresco, corte impecable recomendado por asesores para climas cálidos.",
+                reviews: [{ name: "Marlene Ramos", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+{
+             id: "tal-05",
+                name: "Talego",
+                category: "Talego",
+                fabric: "Lino",
+                type: "talego",
+                sizes: SHIRT_SIZES,
+                price: 169000,
+             /*   wholesalePrice: 160000, */
+                featured: true,
+                colors: ["Amarillo puntos"],
+                media: [{ type: "image", url: "img/talego/talego5.png" }],
+                description: "Talego de lino 100% fresco, corte impecable recomendado por asesores para climas cálidos.",
+                reviews: [{ name: "Marlene Ramos", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+{
+             id: "tal-06",
+                name: "Talego",
+                category: "Talego",
+                fabric: "Lino",
+                type: "talego",
+                sizes: SHIRT_SIZES,
+                price: 169000,
+             /*   wholesalePrice: 160000, */
+                featured: true,
+                colors: ["Amarillo puntos"],
+                media: [{ type: "image", url: "img/talego/talego3.webp" }],
+                description: "Talego de lino 100% fresco, corte impecable recomendado por asesores para climas cálidos.",
+                reviews: [{ name: "Marlene Ramos", city: "Valledupar", avatar: "https://i.pravatar.cc/100?img=12", stars: 5, comment: "Fantasía de prenda. Tela muy fresca." }]
+            },
+        ];
+
+        /* BASE DE DATOS EXCLUSIVOS (ANTES AVISOS) */
+        const EXCLUSIVE_CATEGORIES = ["Todos", "Alta Costura", "Avisos Neón", "Personalizados"];
+
+        const EXCLUSIVE_PRODUCTS_DATA = [
+        
+{
+                id: "excl-010",
+                name: "Camisa Exclusiva",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 148000 ,
+               /* wholesalePrice: 198000,*/
+                colors: ["Negro-Blanco"],
+                media: [{ type: "image", url: "img/personalizado/excl1.webp" }],
+                description: "Camisa exclusiva personalizada color Negra-Blanca, .",
+                reviews: []
+            },
+{
+                id: "excl-011",
+                name: "Camisa Exlusiva",
+                category: "exclusivo",
+                fabric: "Lino",
+                price: 198000,
+            /*    wholesalePrice: 220000, */
+                colors: ["Blanco-Lineas rosado "],
+                media: [{ type: "image", url: "img/personalizado/excl2.webp" }],
+                description: "Camisa exclusiva personalizada color Blanco-Lineas rosado. .",
+                reviews: []
+            },
+{
+                id: "excl-012",
+                name: "Camisa Exlusiva",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 148000,
+            /*    wholesalePrice: 220000, */
+                colors: ["Rosado-Lineas negras "],
+                media: [{ type: "image", url: "img/personalizado/excl3.webp" }],
+                description: "Camisa exclusiva personalizada color Rosado-Lineas negras, .",
+                reviews: []
+            },
+{
+                id: "excl-013",
+                name: "Camisa Exlusiva",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 168000,
+            /*    wholesalePrice: 220000, */
+                colors: ["Negro-Lineas rojas "],
+                media: [{ type: "image", url: "img/personalizado/excl9.webp" }],
+                description: "Camisa exclusiva personalizada color Negro-Lineas rojas.",
+                reviews: []
+            },
+{
+                id: "excl-014",
+                name: "Camisa Exlusiva",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 168000,
+            /*    wholesalePrice: 220000, */
+                colors: ["Roja-Blanco-negro "],
+                media: [{ type: "image", url: "img/personalizado/excl4.webp" }],
+                description: "Camisa exclusiva personalizada color Roja-Blanco-negro.",
+                reviews: []
+            },
+{
+                id: "excl-015",
+                name: "Camisa Exlusiva",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 168000,
+            /*    wholesalePrice: 220000, */
+                colors: ["Blanco-Lineas negras "],
+                media: [{ type: "image", url: "img/personalizado/excl5.webp" }],
+                description: "Camisa exclusiva personalizada color Blanco-Lineas negras, .",
+                reviews: []
+            },
+{
+                id: "excl-016",
+                name: "Camisa Exlusiva",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 168000,
+            /*    wholesalePrice: 220000, */
+                colors: ["Negro-Líneas Blanco  "],
+                media: [{ type: "image", url: "img/personalizado/excl6.webp" }],
+                description: "Camisa exclusiva personalizada color Negro-Líneas Blanco, .",
+                reviews: []
+            },
+{
+                id: "excl-017",
+                name: "Camisa Exlusiva",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 168000,
+            /*    wholesalePrice: 220000, */
+                colors: ["Negro-Líneas negra"],
+                media: [{ type: "image", url: "img/personalizado/excl7.webp" }],
+                description: "Camisa exclusiva personalizada color Negro-Líneas negra , .",
+                reviews: []
+            },
+{
+                id: "excl-018",
+                name: "Camisa Exlusiva",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 168000,
+            /*    wholesalePrice: 220000, */
+                colors: ["Negro-Líneas Blanco  "],
+                media: [{ type: "image", url: "img/personalizado/excl8.webp" }],
+                description: "Camisa exclusiva personalizada color Negro-Líneas Blanco, .",
+                reviews: []
+            },  
+        
+        
+        {
+                id: "excl-01",
+                name: "FAMILIA",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 168000,
+                /*  wholesalePrice: 115000, */
+                colors: ["Turqui-Rosado"],
+                media: [{ type: "image", url: "img/personalizado/p7.webp" }],
+                description: "Familia vestida con nosotros.",
+                reviews: []
+            },
+            {
+                id: "excl-02",
+                name: "Traje Alta Costura Asesorado",
+                category: "Alta Costura",
+                price: 450000,
+                /*  wholesalePrice: 115000, */
+                colors: ["Negro", "Azul Noche"],
+                media: [{ type: "image", url: "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80" }],
+                description: "Diseño único a la medida bajo consultoría de colorometría y visión de estilo.",
+                reviews: []
+            },
+    {
+                id: "excl-03",
+                name: "Camisa Sobre Medida",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 250000,
+               /*  wholesalePrice: 115000, */
+                colors: ["Rosa", "Azul"],
+                media: [{ type: "image", url: "img/personalizado/p1.webp" }],
+                description: "Iluminación neón flex sobre acrílico personalizada para marcas y boutiques.",
+                reviews: []
+            },
+{
+                id: "excl-04",
+                name: "Camisa Sobre Medida",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 250000,
+                /*  wholesalePrice: 115000, */
+                colors: ["Rosa", "Azul"],
+                media: [{ type: "image", url: "img/personalizado/p2.webp" }],
+                description: "Iluminación neón flex sobre acrílico personalizada para marcas y boutiques.",
+                reviews: []
+            },
+{
+                id: "excl-06",
+                name: "Camisa Sobre Medida",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 250000,
+                /*  wholesalePrice: 115000, */
+                colors: ["Rosa", "Azul"],
+                media: [{ type: "image", url: "img/personalizado/p6.webp" }],
+                description: "Iluminación neón flex sobre acrílico personalizada para marcas y boutiques.",
+                reviews: []
+            },
+{
+                id: "excl-07",
+                name: "Camisa Sobre Medida",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 250000,
+                /*  wholesalePrice: 115000, */
+                colors: ["Rosa", "Azul"],
+                media: [{ type: "image", url: "img/personalizado/p5.webp" }],
+                description: "Iluminación neón flex sobre acrílico personalizada para marcas y boutiques.",
+                reviews: []
+            },
+{
+                id: "excl-08",
+                name: "Camisa Sobre Medida",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 250000,
+               /*  wholesalePrice: 115000, */
+                colors: ["Rosa", "Azul"],
+                media: [{ type: "image", url: "img/personalizado/p3.webp" }],
+                description: "Iluminación neón flex sobre acrílico personalizada para marcas y boutiques.",
+                reviews: []
+            },
+{
+                id: "excl-09",
+                name: "Camisa Sobre Medida",
+                category: "exclusivo",
+                fabric: "Algodon",
+                price: 250000,
+                /*  wholesalePrice: 115000, */
+                colors: ["Rosa", "Azul"],
+                media: [{ type: "image", url: "img/personalizado/p4.webp" }],
+                description: "Iluminación neón flex sobre acrílico personalizada para marcas y boutiques.",
+                reviews: []
+            },
+
+        ];
+
+        /* ESTADO GLOBAL */
+        let cart = [];
+        let currentCategory = "Todos";
+        let currentFabric = "Todas las telas";
+        let currentExclusiveCategory = "Todos";
+        let activeProduct = null;
+        let selectedSize = "";
+        let currentSlideIndex = 0;
+
+        /* ELEMENTOS DEL DOM */
+        const mainProductsGrid = document.getElementById("mainProductsGrid");
+        const featuredProductsGrid = document.getElementById("featuredProducts");
+        const neonProductsGrid = document.getElementById("neonProductsGrid");
+        const categoriesContainer = document.getElementById("categoriesContainer");
+        const fabricCategoriesContainer = document.getElementById("fabricCategoriesContainer");
+        const neonCategoriesContainer = document.getElementById("neonCategoriesContainer");
+        const searchInput = document.getElementById("searchInput");
+        const cartDrawer = document.getElementById("cartDrawer");
+        const cartOverlay = document.getElementById("cartOverlay");
+        const cartCountBadge = document.getElementById("cartCount");
+        const cartItemsContainer = document.getElementById("cartItemsContainer");
+        const cartTotalEl = document.getElementById("cartTotal");
+        const productModal = document.getElementById("productModal");
+
+        /* INICIALIZACIÓN */
+        document.addEventListener("DOMContentLoaded", () => {
+            initAnimatedBubbles();
+            renderCategories();
+            renderFabricCategories();
+            renderExclusiveCategories();
+            renderProducts(PRODUCTS_DATA);
+            renderFeaturedProducts();
+            renderExclusiveProducts(EXCLUSIVE_PRODUCTS_DATA);
+            loadEmpresaMedia();
+            setupEventListeners();
+        });
+
+        function initAnimatedBubbles() {
+            const container = document.getElementById("bubblesContainer");
+            const bubbleCount = 20;
+            for (let i = 0; i < bubbleCount; i++) {
+                const bubble = document.createElement("div");
+                bubble.classList.add("bubble");
+                const size = Math.random() * 40 + 15;
+                bubble.style.width = `${size}px`;
+                bubble.style.height = `${size}px`;
+                bubble.style.left = `${Math.random() * 100}%`;
+                bubble.style.animationDuration = `${Math.random() * 10 + 8}s`;
+                bubble.style.animationDelay = `${Math.random() * 5}s`;
+                container.appendChild(bubble);
+            }
+        }
+
+        function switchView(viewName) {
+            document.querySelectorAll(".app-view").forEach(el => el.classList.remove("active"));
+            document.querySelectorAll(".nav-item").forEach(el => el.classList.remove("active"));
+
+            const targetView = document.getElementById(`view-${viewName}`);
+            if (targetView) targetView.classList.add("active");
+
+            const viewsIndex = { 'inicio': 0, 'productos': 1, 'exclusivos': 2, 'empresa': 3, 'ubicacion': 4 };
+            const navItems = document.querySelectorAll(".nav-item");
+            if (viewsIndex[viewName] !== undefined && navItems[viewsIndex[viewName]]) {
+                navItems[viewsIndex[viewName]].classList.add("active");
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function formatPrice(val) {
+            return new Intl.NumberFormat("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }).format(val);
+        }
+
+        /* CATEGORÍAS Y FILTROS */
+        function renderCategories() {
+            categoriesContainer.innerHTML = CATEGORIES.map(cat => `
+                <button class="category-chip ${cat === currentCategory ? 'active' : ''}" onclick="filterByCategory('${cat}')">${cat}</button>
+            `).join("");
+        }
+
+        function renderFabricCategories() {
+            fabricCategoriesContainer.innerHTML = FABRIC_TYPES.map(fab => `
+                <button class="category-chip ${fab === currentFabric ? 'active' : ''}" onclick="filterByFabric('${fab}')">${fab}</button>
+            `).join("");
+        }
+
+        function renderExclusiveCategories() {
+            neonCategoriesContainer.innerHTML = EXCLUSIVE_CATEGORIES.map(cat => `
+                <button class="category-chip ${cat === currentExclusiveCategory ? 'active' : ''}" onclick="filterExclusiveByCategory('${cat}')">${cat}</button>
+            `).join("");
+        }
+
+        /* TARJETAS DE PRODUCTOS CON DOS PRECIOS */
+        function createProductCardHTML(prod, isExclusive = false) {
+            const firstImg = prod.media && prod.media[0] ? prod.media[0].url : "";
+            const fabricBadge = prod.fabric ? `<div class="product-fabric"><i class="fas fa-scroll"></i> Tela: ${prod.fabric}</div>` : '';
+            return `
+                <div class="product-card">
+                    <div class="product-img-wrapper" onclick="openProductModal('${prod.id}', ${isExclusive})">
+                        <img ${buildImageAttrs(firstImg)} alt="${prod.name}" class="product-img" loading="lazy">
+                        ${prod.category ? `<span class="product-badge">${prod.category}</span>` : ''}
+                    </div>
+                    <h4 class="product-title" onclick="openProductModal('${prod.id}', ${isExclusive})">${prod.name}</h4>
+                    ${fabricBadge}
+                    
+                    <div class="price-container">
+                        <span class="price-retail">Detal: ${formatPrice(prod.price)}</span>
+                        ${prod.wholesalePrice ? `<span class="price-wholesale">X Mayor (3+): ${formatPrice(prod.wholesalePrice)}</span>` : ''}
+                    </div>
+
+                    <button class="btn-add-cart" onclick="openProductModal('${prod.id}', ${isExclusive})">
+                        <i class="fas fa-eye"></i> Ver Detalle & Zoom
+                    </button>
+                </div>
+            `;
+        }
+
+        function renderProducts(list) {
+            if (list.length === 0) {
+                mainProductsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 20px;">No se encontraron prendas con los filtros seleccionados.</p>`;
+                return;
+            }
+            mainProductsGrid.innerHTML = list.map(prod => createProductCardHTML(prod)).join("");
+        }
+
+        function renderFeaturedProducts() {
+            const featured = PRODUCTS_DATA.filter(p => p.featured);
+            featuredProductsGrid.innerHTML = featured.map(prod => createProductCardHTML(prod)).join("");
+        }
+
+        function renderExclusiveProducts(list) {
+            if (list.length === 0) {
+                neonProductsGrid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; padding: 20px;">No hay productos en esta categoría.</p>`;
+                return;
+            }
+            neonProductsGrid.innerHTML = list.map(prod => createProductCardHTML(prod, true)).join("");
+        }
+
+        function filterByCategory(cat) {
+            currentCategory = cat;
+            renderCategories();
+            applyFilters();
+        }
+
+        function filterByFabric(fab) {
+            currentFabric = fab;
+            renderFabricCategories();
+            applyFilters();
+        }
+
+        function filterExclusiveByCategory(cat) {
+            currentExclusiveCategory = cat;
+            renderExclusiveCategories();
+            let filtered = EXCLUSIVE_PRODUCTS_DATA;
+            if (cat !== "Todos") {
+                filtered = filtered.filter(p => p.category === cat);
+            }
+            renderExclusiveProducts(filtered);
+        }
+
+        function applyFilters() {
+            const query = searchInput.value.toLowerCase().trim();
+            let filtered = PRODUCTS_DATA;
+            if (currentCategory !== "Todos") filtered = filtered.filter(p => p.category === currentCategory);
+            if (currentFabric !== "Todas las telas") filtered = filtered.filter(p => p.fabric === currentFabric);
+            if (query !== "") filtered = filtered.filter(p => p.name.toLowerCase().includes(query) || (p.fabric && p.fabric.toLowerCase().includes(query)));
+            renderProducts(filtered);
+        }
+
+        function loadEmpresaMedia() {
+            const profileEl = document.getElementById("empresaProfileImg");
+            if (profileEl) profileEl.src = QUIENES_SOMOS_DRIVE_PHOTO;
+
+            const galleryContainer = document.getElementById("storeGallery");
+            if (galleryContainer) {
+                galleryContainer.innerHTML = STORE_PHOTOS.map(url => `
+                    <img src="${url}" class="store-photo" alt="Trabajo Realizado JEICOT CONFECCIONES">
+                `).join("");
+            }
+        }
+
+        /* MODAL DE PRODUCTO */
+        function openProductModal(productId, isExclusive = false) {
+            const pool = isExclusive ? EXCLUSIVE_PRODUCTS_DATA : PRODUCTS_DATA;
+            const product = pool.find(p => p.id === productId);
+            if (!product) return;
+
+            activeProduct = product;
+            currentSlideIndex = 0;
+
+            document.getElementById("modalTitle").innerText = product.name;
+            document.getElementById("modalPrice").innerText = `Precio Detal: ${formatPrice(product.price)}`;
+            
+            const wholesaleEl = document.getElementById("modalWholesalePrice");
+            if(product.wholesalePrice) {
+                wholesaleEl.innerText = `Precio al por Mayor (3+ und): ${formatPrice(product.wholesalePrice)}`;
+                wholesaleEl.style.display = "block";
+            } else {
+                wholesaleEl.style.display = "none";
+            }
+
+            document.getElementById("modalDesc").innerText = product.description;
+            document.getElementById("selectedQty").value = 1;
+
+            const fabricBadge = document.getElementById("modalFabricBadge");
+            if (product.fabric) {
+                fabricBadge.innerText = `Tela: ${product.fabric}`;
+                fabricBadge.style.display = "inline-block";
+            } else {
+                fabricBadge.style.display = "none";
+            }
+
+            // Tallas
+            const sizeGroup = document.getElementById("sizeGroup");
+            const sizeSelector = document.getElementById("sizeSelector");
+            const sizeGuideBox = document.getElementById("sizeGuideBox");
+            const sizeGuideImg = document.getElementById("sizeGuideImg");
+
+            if (product.sizes && product.sizes.length > 0) {
+                sizeGroup.style.display = "block";
+                sizeGuideBox.style.display = "flex";
+
+                selectedSize = product.sizes[0];
+                sizeSelector.innerHTML = product.sizes.map(sz => `
+                    <button class="size-btn ${sz === selectedSize ? 'active' : ''}" onclick="selectSize('${sz}')">${sz}</button>
+                `).join("");
+
+                if (["Camisa", "Suéter", "Blusas", "Talego"].includes(product.category)) {
+                    sizeGuideImg.src = SHIRT_SIZE_GUIDE_IMG;
+                } else {
+                    sizeGuideImg.src = PANTS_SIZE_GUIDE_IMG;
+                }
+            } else {
+                sizeGroup.style.display = "none";
+                sizeGuideBox.style.display = "none";
+                selectedSize = "Única";
+            }
+
+            // Colores
+            const colorSelect = document.getElementById("colorSelect");
+            if (product.colors && product.colors.length > 0) {
+                document.getElementById("colorGroup").style.display = "block";
+                colorSelect.innerHTML = product.colors.map(c => `<option value="${c}">${c}</option>`).join("");
+            } else {
+                document.getElementById("colorGroup").style.display = "none";
+            }
+
+            renderSlider();
+            renderComments(product.reviews || []);
+            updateModalWspLink();
+            productModal.classList.add("active");
+        }
+
+        function selectSize(sz) {
+            selectedSize = sz;
+            document.querySelectorAll(".size-btn").forEach(btn => {
+                if (btn.innerText === sz) btn.classList.add("active");
+                else btn.classList.remove("active");
+            });
+            updateModalWspLink();
+        }
+
+        /* SLIDER Y ZOOM */
+        function renderSlider() {
+            const mediaList = activeProduct.media || [];
+            const wrapper = document.getElementById("sliderMediaWrapper");
+            const dotsContainer = document.getElementById("sliderDots");
+
+            if (mediaList.length === 0) {
+                wrapper.innerHTML = `<img src="${PLACEHOLDER_IMAGE}" class="slider-media">`;
+                dotsContainer.innerHTML = "";
+                return;
+            }
+
+            const current = mediaList[currentSlideIndex];
+            const variants = getGoogleDriveImageVariants(current.url);
+            
+            wrapper.innerHTML = `<img src="${variants[0]}" class="slider-media" title="Haz clic para Zoom" onclick="triggerZoom('${variants[0]}')" data-fallbacks='${JSON.stringify(variants.slice(1))}' onerror="handleImageError(this)">`;
+
+            dotsContainer.innerHTML = mediaList.map((_, idx) => `
+                <div class="dot ${idx === currentSlideIndex ? 'active' : ''}" onclick="goToSlide(${idx})"></div>
+            `).join("");
+        }
+
+        /* FUNCIONALIDAD DE ZOOM EN LA IMAGEN */
+        function triggerZoom(imgSrc) {
+            const zoomModal = document.getElementById("zoomModal");
+            const zoomImg = document.getElementById("zoomImg");
+            zoomImg.src = imgSrc;
+            zoomModal.classList.add("active");
+        }
+
+        function closeZoomModal() {
+            document.getElementById("zoomModal").classList.remove("active");
+        }
+
+        function moveSlide(direction) {
+            if (!activeProduct || !activeProduct.media) return;
+            const total = activeProduct.media.length;
+            currentSlideIndex = (currentSlideIndex + direction + total) % total;
+            renderSlider();
+        }
+
+        function goToSlide(index) {
+            currentSlideIndex = index;
+            renderSlider();
+        }
+
+        function adjustQty(delta) {
+            const input = document.getElementById("selectedQty");
+            let val = parseInt(input.value) + delta;
+            if (val < 1) val = 1;
+            input.value = val;
+            updateModalWspLink();
+        }
+
+        function updateModalWspLink() {
+            if (!activeProduct) return;
+            const qty = parseInt(document.getElementById("selectedQty").value);
+            const colorSelect = document.getElementById("colorSelect");
+            const color = colorSelect.value ? colorSelect.value : "Standard";
+            
+            // Evaluar si aplica precio al por mayor
+            const unitPrice = (qty >= 3 && activeProduct.wholesalePrice) ? activeProduct.wholesalePrice : activeProduct.price;
+
+            let msg = `Hola JEICOT CONFECCIONES, deseo ordenar:
+
+📌 *${activeProduct.name}*
+`;
+            if (activeProduct.fabric) msg += `🧵 *Tela:* ${activeProduct.fabric}\n`;
+            if (selectedSize) msg += `📏 *Talla:* ${selectedSize}\n`;
+            msg += `🎨 *Color:* ${color}
+🔢 *Cantidad:* ${qty}
+💰 *Precio Total:* ${formatPrice(unitPrice * qty)}`;
+
+            document.getElementById("modalWspBtn").href = `https://wa.me/573022736655?text=${encodeURIComponent(msg)}`;
+        }
+
+        function renderComments(reviews) {
+            const container = document.getElementById("commentsContainer");
+            if (reviews.length === 0) {
+                container.innerHTML = `<p style="font-size: 0.8rem; color: var(--text-muted);">Sin opiniones registradas aún. ¡Sé el primero en lucirla!</p>`;
+                return;
+            }
+
+            container.innerHTML = reviews.map(rev => `
+                <div class="comment-card">
+                    <div class="comment-header">
+                        <img src="${rev.avatar}" class="comment-avatar" alt="${rev.name}">
+                        <div>
+                            <div class="comment-user">${rev.name}</div>
+                            <div class="comment-city"><i class="fas fa-map-marker-alt"></i> ${rev.city}</div>
+                        </div>
+                    </div>
+                    <div class="comment-stars">${'★'.repeat(rev.stars)}${'☆'.repeat(5 - rev.stars)}</div>
+                    <div class="comment-text">${rev.comment}</div>
+                </div>
+            `).join("");
+        }
+
+        function closeModal() { productModal.classList.remove("active"); }
+
+        /* CARRITO DE COMPRAS CON CÁLCULO INTELIGENTE DE DOS PRECIOS */
+        function addToCartFromModal() {
+            if (!activeProduct) return;
+            const qty = parseInt(document.getElementById("selectedQty").value);
+            const colorSelect = document.getElementById("colorSelect");
+            const color = colorSelect.value ? colorSelect.value : "Standard";
+
+            const cartItemId = `${activeProduct.id}-${selectedSize}-${color}`;
+            const existing = cart.find(i => i.cartItemId === cartItemId);
+
+            if (existing) {
+                existing.quantity += qty;
+            } else {
+                cart.push({
+                    ...activeProduct,
+                    cartItemId,
+                    selectedSize,
+                    selectedColor: color,
+                    quantity: qty
+                });
+            }
+
+            showToast("Prenda añadida al carrito");
+            updateCartUI();
+            closeModal();
+        }
+
+        function removeFromCart(cartItemId) {
+            cart = cart.filter(i => i.cartItemId !== cartItemId);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+            cartCountBadge.innerText = totalItems;
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `<p style="text-align: center; color: var(--text-muted); margin-top: 20px;">Tu carrito está vacío.</p>`;
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => {
+                    const activePrice = (item.quantity >= 3 && item.wholesalePrice) ? item.wholesalePrice : item.price;
+                    return `
+                    <div class="cart-item">
+                        <img ${buildImageAttrs(item.media && item.media[0] ? item.media[0].url : '')} class="cart-item-img" alt="${item.name}">
+                        <div style="flex:1;">
+                            <div style="font-size:0.85rem; font-weight:600;">${item.name}</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted);">
+                                ${item.selectedSize ? `Talla: <strong>${item.selectedSize}</strong> | ` : ''} Color: ${item.selectedColor}
+                            </div>
+                            <div style="font-size:0.8rem; color:var(--neon-green);">${formatPrice(activePrice)} x ${item.quantity}</div>
+                        </div>
+                        <button onclick="removeFromCart('${item.cartItemId}')" style="background:none; border:none; color:var(--neon-pink); cursor:pointer;">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                `}).join("");
+            }
+
+            const totalAmount = cart.reduce((acc, item) => {
+                const priceToUse = (item.quantity >= 3 && item.wholesalePrice) ? item.wholesalePrice : item.price;
+                return acc + (priceToUse * item.quantity);
+            }, 0);
+            cartTotalEl.innerText = formatPrice(totalAmount);
+        }
+
+        function checkoutWhatsApp() {
+            if (cart.length === 0) {
+                alert("Agrega al menos una prenda al carrito.");
+                return;
+            }
+
+            let message = "Hola JEICOT CONFECCIONES, me gustaría confirmar mi pedido:🛍️ *Mi Pedido:*\n\n";
+            cart.forEach(item => {
+                const priceToUse = (item.quantity >= 3 && item.wholesalePrice) ? item.wholesalePrice : item.price;
+                const subtotal = priceToUse * item.quantity;
+                message += `• *${item.name}*\n`;
+                if (item.fabric) message += `  Tela: ${item.fabric}\n`;
+                if (item.selectedSize) message += `  Talla: ${item.selectedSize}\n`;
+                message += `  Color: ${item.selectedColor}\n  Cantidad: ${item.quantity}\n  Subtotal: ${formatPrice(subtotal)}\n\n`;
+            });
+
+            const total = cart.reduce((acc, item) => {
+                const priceToUse = (item.quantity >= 3 && item.wholesalePrice) ? item.wholesalePrice : item.price;
+                return acc + (priceToUse * item.quantity);
+            }, 0);
+
+            message += `💰 *Total a Pagar: ${formatPrice(total)}*\n\n¿Me confirman disponibilidad e instrucciones para entrega en Valledupar?`;
+
+            window.open(`https://wa.me/573022736655?text=${encodeURIComponent(message)}`, "_blank");
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById("toast");
+            toast.innerText = msg;
+            toast.classList.add("show");
+            setTimeout(() => toast.classList.remove("show"), 2000);
+        }
+
+        function setupEventListeners() {
+            document.getElementById("cartToggle").addEventListener("click", () => {
+                cartDrawer.classList.add("active");
+                cartOverlay.classList.add("active");
+            });
+
+            document.getElementById("closeCart").addEventListener("click", () => {
+                cartDrawer.classList.remove("active");
+                cartOverlay.classList.remove("active");
+            });
+
+            cartOverlay.addEventListener("click", () => {
+                cartDrawer.classList.remove("active");
+                cartOverlay.classList.remove("active");
+            });
+
+            document.getElementById("btnCheckout").addEventListener("click", checkoutWhatsApp);
+            document.getElementById("closeModal").addEventListener("click", closeModal);
+            document.getElementById("modalAddBtn").addEventListener("click", addToCartFromModal);
+
+            document.getElementById("colorSelect").addEventListener("change", updateModalWspLink);
+            searchInput.addEventListener("input", applyFilters);
+
+            document.getElementById("themeToggle").addEventListener("click", () => {
+                const currentTheme = document.documentElement.getAttribute("data-theme");
+                const newTheme = currentTheme === "dark" ? "light" : "dark";
+                document.documentElement.setAttribute("data-theme", newTheme);
+            });
+        }
+    </script>
+</body>
+</html>
+
